@@ -1,0 +1,1206 @@
+/* =========================================================
+   ARCLIFT - style.css
+   Urutan: Variabel > Reset > Komponen umum > Per section > Responsif
+   ========================================================= */
+
+/* ---------- 0. Font lokal (agar tetap tampil saat ujian offline) ----------
+   Simpan file .ttf di folder assets/fonts/. Jika file tidak ada,
+   browser memakai Google Fonts (saat online) atau font cadangan. */
+@font-face {
+  font-family: "Anton";
+  src: local("Anton"), url("assets/fonts/Anton-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: local("Barlow"), url("assets/fonts/Barlow-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: local("Barlow Medium"), url("assets/fonts/Barlow-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: local("Barlow SemiBold"), url("assets/fonts/Barlow-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow Condensed";
+  src: local("Barlow Condensed Medium"), url("assets/fonts/BarlowCondensed-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow Condensed";
+  src: local("Barlow Condensed SemiBold"), url("assets/fonts/BarlowCondensed-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+
+/* ---------- 1. Variabel warna, font & ukuran ---------- */
+:root {
+  /* Palet: hitam, abu-abu bertingkat, dan merah marun gelap sebagai aksen */
+  --ink: #0f0f0f;        /* latar utama */
+  --charcoal: #181818;   /* latar section alternatif */
+  --graphite: #242424;   /* kartu */
+  --line: #333230;       /* garis tepi */
+  --stone: #8a8782;      /* teks sekunder (abu hangat) */
+  --bone: #e6e3dd;       /* teks utama (putih tulang, tidak terlalu terang) */
+  --oxblood: #5c1f1d;    /* aksen gelap */
+  --oxblood-light: #a0524a;
+  --slate: #2a2e33;      /* abu kebiruan untuk variasi */
+
+  /* Keluarga font + cadangan jika offline */
+  --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-condensed: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Barlow", "Helvetica Neue", Arial, sans-serif;
+
+  --radius: 2px;
+  --max-width: 1200px;
+}
+
+/* ---------- 2. Reset dasar ---------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--ink);
+  color: var(--bone);
+  line-height: 1.6;
+  overflow-x: hidden; /* mencegah elemen keluar layar */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Bootstrap memberi margin/padding bawaan pada elemen ini,
+   jadi kita nolkan lagi supaya layout lama tidak berubah */
+h1, h2, h3, p, ul, figure, legend {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+}
+
+/* Judul besar memakai font display */
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 400;          /* Anton sudah tebal secara bawaan */
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+/* Sub-judul memakai font condensed */
+h3 {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin-bottom: 1.75rem;
+}
+
+/* ---------- 3. Komponen umum ---------- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+section {
+  padding: 5.5rem 0;
+}
+
+.btn {
+  /* menimpa warna aktif/fokus bawaan Bootstrap (biru) */
+  --bs-btn-active-bg: var(--oxblood);
+  --bs-btn-active-color: var(--bone);
+  --bs-btn-active-border-color: var(--oxblood);
+  --bs-btn-focus-shadow-rgb: 230, 227, 221;
+  --bs-btn-hover-bg: var(--oxblood);
+  --bs-btn-hover-color: var(--bone);
+  --bs-btn-hover-border-color: var(--oxblood);
+  display: inline-block;
+  padding: 0.85rem 1.75rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--font-condensed);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--bone);
+  border-color: var(--bone);
+  color: var(--ink);
+}
+
+.btn-primary:hover {
+  background-color: var(--oxblood);
+  border-color: var(--oxblood);
+  color: var(--bone);
+}
+
+/* Garis fokus untuk navigasi keyboard, mengganti glow biru Bootstrap */
+.btn:focus-visible {
+  outline: 2px solid var(--stone);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+.btn-outline {
+  border-color: var(--stone);
+  color: var(--bone);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  border-color: var(--bone);
+  background-color: var(--graphite);
+}
+
+.btn-small {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  background-color: transparent;
+  color: var(--bone);
+  border-color: var(--line);
+}
+
+.btn-small:hover {
+  background-color: var(--bone);
+  color: var(--ink);
+}
+
+/* Teks hanya untuk pembaca layar (aksesibilitas) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* ---------- 4. Pengumuman & Header ---------- */
+.announcement {
+  background-color: var(--oxblood);
+  color: var(--bone);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(15, 15, 15, 0.96);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Flexbox: logo kiri, nav tengah, keranjang kanan */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 68px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  color: var(--stone);
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 2.25rem;
+}
+
+.main-nav a {
+  font-family: var(--font-condensed);
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--stone);
+  transition: color 0.2s;
+}
+
+.main-nav a:hover {
+  color: var(--bone);
+}
+
+.cart-btn {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--bone);
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius);
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.cart-btn:hover {
+  border-color: var(--stone);
+}
+
+.cart-count {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  background-color: var(--bone);
+  color: var(--ink);
+  border-radius: 50%;
+  min-width: 20px;
+  line-height: 20px;
+  text-align: center;
+  margin-left: 6px;
+}
+
+/* Animasi kecil saat jumlah keranjang bertambah (ditambah lewat JS) */
+.cart-count.bump {
+  animation: bump 0.3s ease;
+}
+
+@keyframes bump {
+  50% { transform: scale(1.35); }
+}
+
+/* Tombol hamburger disembunyikan di desktop */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.nav-toggle span {
+  width: 24px;
+  height: 2px;
+  background-color: var(--bone);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* ---------- 5. Hero ---------- */
+.hero {
+  padding: 5rem 0 6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Grid 2 kolom: teks dan visual */
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+
+.hero h1 {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  margin-bottom: 1.5rem;
+}
+
+.hero-text > p {
+  color: var(--stone);
+  font-size: 1.1rem;
+  max-width: 460px;
+  margin-bottom: 2.25rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Visual hero: blok abu dengan teks besar, seperti label koleksi */
+.hero-visual {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background-color: #050505;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+}
+
+/* Foto model memenuhi kotak hero */
+.hero-visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%; /* jaga wajah tetap terlihat saat dipotong */
+}
+
+/* Lapisan gelap di bagian bawah agar teks terbaca */
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+
+.hero-word {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--bone);
+  position: relative;
+  z-index: 1; /* di atas foto dan lapisan gelap */
+}
+
+
+/* ---------- 6. Countdown Drop ---------- */
+.drop {
+  padding: 3rem 0;
+  background-color: var(--charcoal);
+  border-bottom: 1px solid var(--line);
+}
+
+.drop-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.drop h2 {
+  margin-bottom: 0.5rem;
+}
+
+.drop p {
+  color: var(--stone);
+}
+
+.countdown {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.time-box {
+  background-color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.5rem;
+  min-width: 78px;
+  text-align: center;
+}
+
+.time-box span {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--bone);
+}
+
+.time-box small {
+  font-family: var(--font-condensed);
+  font-size: 0.8rem;
+  color: var(--stone);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ---------- 7. Produk ---------- */
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.section-head h2 {
+  margin-bottom: 0;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+/* Filter bergaya teks bergaris bawah, bukan tombol bulat */
+.filter-btn {
+  background: transparent;
+  color: var(--stone);
+  border: none;
+  border-bottom: 1px solid transparent;
+  padding: 0.25rem 0;
+  cursor: pointer;
+  font-family: var(--font-condensed);
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.filter-btn:hover {
+  color: var(--bone);
+}
+
+.filter-btn.active {
+  color: var(--bone);
+  border-bottom-color: var(--bone);
+}
+
+/* Grid otomatis: jumlah kolom menyesuaikan lebar layar */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.product-card {
+  background-color: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.product-card:hover {
+  border-color: var(--stone);
+}
+
+/* Kelas untuk menyembunyikan kartu saat difilter (dipakai JS) */
+.product-card.hidden {
+  display: none;
+}
+
+/* Foto produk mengisi kotak tanpa gepeng (object-fit) */
+.product-img {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background-color: var(--graphite);
+}
+
+.product-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* Efek zoom halus saat kartu disorot */
+.product-card:hover .product-img img {
+  transform: scale(1.05);
+}
+
+/* Badge harus di atas foto */
+.product-img .badge {
+  z-index: 1;
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: var(--bone);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+}
+
+.badge-dark {
+  background-color: var(--oxblood);
+  color: var(--bone);
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Flexbox kolom: tombol selalu menempel di bawah walau judul 2 baris */
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.product-info .add-cart {
+  margin-top: auto;
+}
+
+.product-info h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.2rem;
+}
+
+.price {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--stone);
+  margin-bottom: 1rem;
+}
+
+/* ---------- 8. Keunggulan ---------- */
+.features {
+  background-color: var(--charcoal);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.feature {
+  padding: 2rem 2rem 2rem 0;
+}
+
+.feature + .feature {
+  padding-left: 2rem;
+  border-left: 1px solid var(--line);
+}
+
+
+.feature h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature p {
+  color: var(--stone);
+}
+
+/* ---------- 9. FAQ / Accordion ---------- */
+.faq-inner {
+  max-width: 820px;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: none;
+  border: none;
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: left;
+  padding: 1.35rem 0;
+  cursor: pointer;
+}
+
+.faq-question .icon {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  color: var(--stone);
+  transition: transform 0.3s;
+}
+
+/* Isi accordion tertutup secara default */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-answer p {
+  color: var(--stone);
+  padding-bottom: 1.35rem;
+}
+
+/* Saat item aktif (kelas ditambah JS) */
+.faq-item.active .icon {
+  transform: rotate(45deg);
+}
+
+/* ---------- 10. Newsletter ---------- */
+.newsletter {
+  background-color: var(--slate);
+  text-align: center;
+}
+
+.newsletter-inner {
+  max-width: 600px;
+}
+
+.newsletter h2 {
+  margin-bottom: 0.75rem;
+}
+
+.newsletter p {
+  color: #a9a7a2;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+}
+
+.newsletter-form input {
+  flex: 1;
+  min-width: 0; /* agar input tidak meluber di layar kecil */
+  padding: 0.85rem 1rem;
+  background-color: var(--ink);
+  color: var(--bone);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+.newsletter-form input::placeholder {
+  color: var(--stone);
+}
+
+.newsletter-form input:focus {
+  outline: none;
+  border-color: var(--bone);
+}
+
+.newsletter-form input.invalid {
+  border-color: #b5463f;
+}
+
+.form-message {
+  margin-top: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  min-height: 1.6em;
+  color: var(--bone) !important;
+}
+
+.form-message.error {
+  color: #e08a83 !important;
+}
+
+/* ---------- 11. Footer ---------- */
+.site-footer {
+  padding: 4rem 0 1.5rem;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-inner p {
+  color: var(--stone);
+  margin-top: 0.75rem;
+  max-width: 320px;
+}
+
+.footer-inner h3 {
+  font-size: 1rem;
+  color: var(--stone);
+  margin-bottom: 1rem;
+}
+
+.footer-inner li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-inner a {
+  transition: color 0.2s;
+}
+
+.footer-inner a:hover {
+  color: var(--stone);
+}
+
+.copyright {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--stone);
+  border-top: 1px solid var(--line);
+  padding-top: 1.5rem;
+}
+
+/* ---------- 11b. Identitas pembuat di footer ---------- */
+.footer-identity .identity-name {
+  color: var(--bone);
+  font-weight: 600;
+  margin-top: 0;
+}
+
+.footer-identity .identity-nim {
+  margin-top: 0.25rem;
+}
+
+/* ---------- 11c. Form Member (Bootstrap) ---------- */
+.member {
+  /* Variabel Bootstrap disesuaikan dengan palet halaman */
+  --bs-body-bg: var(--ink);
+  --bs-body-color: var(--bone);
+  --bs-border-color: var(--line);
+  --bs-secondary-color: var(--stone);
+  --bs-form-invalid-color: #e08a83;
+  --bs-form-invalid-border-color: #b5463f;
+  --bs-form-valid-border-color: #6f7f5a;
+  background-color: var(--charcoal);
+  border-top: 1px solid var(--line);
+}
+
+/* Grid 2 kolom: penjelasan di kiri, form di kanan */
+.member-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.member-text p {
+  color: var(--stone);
+  max-width: 420px;
+}
+
+.member-perks {
+  margin-top: 1.5rem;
+}
+
+.member-perks li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-condensed);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.member-card {
+  background-color: var(--graphite);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+
+.member .form-label {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--bone);
+  margin-bottom: 0.4rem;
+}
+
+.member .form-control,
+.member .form-select {
+  background-color: var(--ink);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+}
+
+.member .form-control::placeholder {
+  color: var(--stone);
+}
+
+.member .form-control:focus,
+.member .form-select:focus {
+  border-color: var(--stone);
+  box-shadow: 0 0 0 0.2rem rgba(230, 227, 221, 0.12);
+}
+
+.member .form-check-input {
+  background-color: var(--ink);
+  border-color: var(--stone);
+  cursor: pointer;
+}
+
+.member .form-check-input:checked {
+  background-color: var(--oxblood);
+  border-color: var(--oxblood);
+}
+
+.member .form-check-label {
+  cursor: pointer;
+}
+
+/* Pesan error hobi ditampilkan lewat kelas d-block dari JS */
+#hobiError.d-block {
+  display: block;
+}
+
+.member-result {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--oxblood-light);
+  background-color: var(--ink);
+}
+
+.member-result h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.member-result dl {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 0.35rem 1rem;
+  margin: 0;
+}
+
+.member-result dt {
+  color: var(--stone);
+  font-weight: 400;
+}
+
+.member-result dd {
+  margin: 0;
+  overflow-wrap: anywhere; /* teks panjang tidak keluar kotak */
+}
+
+/* ---------- 11d. Efek HOVER tambahan ---------- */
+
+/* HOVER: garis bawah muncul dari kiri pada menu navigasi */
+.main-nav a {
+  position: relative;
+}
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background-color: var(--bone);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.main-nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* HOVER: logo berubah warna */
+.logo {
+  transition: color 0.2s;
+}
+
+.logo:hover {
+  color: var(--stone);
+}
+
+/* HOVER: foto hero sedikit membesar */
+.hero-visual img {
+  transition: transform 0.6s ease;
+}
+
+.hero-visual:hover img {
+  transform: scale(1.04);
+}
+
+/* HOVER: kotak countdown terangkat */
+.time-box {
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.time-box:hover {
+  transform: translateY(-3px);
+  border-color: var(--stone);
+}
+
+/* HOVER: judul keunggulan bergeser dan teksnya lebih terang */
+.feature h3,
+.feature p {
+  transition: transform 0.3s, color 0.3s;
+}
+
+.feature:hover p {
+  color: var(--bone);
+}
+
+.feature:hover h3 {
+  transform: translateX(6px);
+  color: #c9a29d;
+}
+
+/* HOVER: poin keuntungan member bergeser */
+.member-perks li {
+  transition: padding-left 0.25s, color 0.25s;
+}
+
+.member-perks li:hover {
+  padding-left: 0.5rem;
+  color: var(--stone);
+}
+
+/* HOVER: pertanyaan FAQ meredup */
+.faq-question {
+  transition: color 0.2s;
+}
+
+.faq-question:hover {
+  color: var(--stone);
+}
+
+/* HOVER: tautan footer bergeser ke kanan */
+.footer-inner li a {
+  display: inline-block;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.footer-inner li a:hover {
+  transform: translateX(4px);
+}
+
+/* ---------- 12. Notifikasi ---------- */
+.notif {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(150%);
+  background-color: var(--bone);
+  color: var(--ink);
+  font-family: var(--font-condensed);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--radius);
+  width: max-content;            /* lebar mengikuti teks */
+  max-width: calc(100% - 40px);  /* tapi tidak melebihi layar */
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 200;
+}
+
+.notif.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* =========================================================
+   13. RESPONSIF
+   ========================================================= */
+
+/* Tablet (≤ 900px) */
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    max-width: 460px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature,
+  .feature + .feature {
+    padding: 1.75rem 0;
+    border-left: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .member-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-inner > div:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Mobile (≤ 768px): navigasi berubah jadi menu hamburger */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+    order: 3;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    background-color: var(--ink);
+    border-bottom: 1px solid var(--line);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  /* Kelas "open" ditambahkan oleh JavaScript */
+  .main-nav.open {
+    max-height: 320px;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .main-nav li a {
+    display: block;
+    padding: 0.75rem 0;
+    font-size: 1.15rem;
+  }
+
+  /* Hamburger berubah jadi tanda X */
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  section {
+    padding: 4rem 0;
+  }
+
+  .hero {
+    padding: 3rem 0 4rem;
+  }
+
+  .drop-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* HP kecil (≤ 480px) */
+@media (max-width: 480px) {
+  .member-card {
+    padding: 1.25rem;
+  }
+
+  .cart-btn {
+    font-size: 0;           /* sembunyikan teks "KERANJANG" */
+    padding: 0.35rem;
+  }
+
+  .cart-count {
+    margin-left: 0;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-visual {
+    padding: 1.25rem;
+  }
+
+
+
+  .countdown {
+    width: 100%;
+  }
+
+  .time-box {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .time-box span {
+    font-size: 1.5rem;
+  }
+
+  /* Produk jadi 2 kolom kecil agar tidak terlalu panjang */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .product-info {
+    padding: 0.75rem;
+  }
+
+  .product-info h3 {
+    font-size: 1rem;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+}
