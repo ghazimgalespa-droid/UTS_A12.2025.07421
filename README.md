@@ -1,10 +1,9 @@
 # UTS Pemrograman Web Dasar – Landing Page ARCLIFT
 
-**Nama:** Ghazi Mahbubulah Galespa
-**NIM:** A12.2025.07421
-**Mata Kuliah:** Pemrograman Web Dasar (A12.76305)
-**Program Studi:** Sistem Informasi – S1, Universitas Dian Nuswantoro
-
+- **Nama:** Ghazi Mahbubulah Galespa
+- **NIM:** A12.2025.07421
+- **Mata Kuliah:** Pemrograman Web Dasar (A12.76305)
+- **Program Studi:** Sistem Informasi – S1, Universitas Dian Nuswantoro
 Landing page interaktif untuk toko fiktif pakaian gym dan streetwear **ARCLIFT**.
 
 ## Teknologi
